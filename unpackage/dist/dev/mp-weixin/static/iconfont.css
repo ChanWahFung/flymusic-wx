@@ -1,0 +1,65 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 1104651 */
+  src: url('https://at.alicdn.com/t/font_1104651_ondhxbr4tfi.eot');
+  src: url('https://at.alicdn.com/t/font_1104651_ondhxbr4tfi.eot?#iefix') format('embedded-opentype'),
+  url('https://at.alicdn.com/t/font_1104651_ondhxbr4tfi.woff2') format('woff2'),
+  url('https://at.alicdn.com/t/font_1104651_ondhxbr4tfi.woff') format('woff'),
+  url('https://at.alicdn.com/t/font_1104651_ondhxbr4tfi.ttf') format('truetype'),
+  url('https://at.alicdn.com/t/font_1104651_ondhxbr4tfi.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-pause:before {
+  content: "\e6ad";
+}
+
+.icon-play:before {
+  content: "\e604";
+}
+
+.icon-loop:before {
+  content: "\e66c";
+}
+
+.icon-single:before {
+  content: "\e66d";
+}
+
+.icon-erji:before {
+  content: "\e654";
+}
+
+.icon-next:before {
+  content: "\e7ff";
+}
+
+.icon-prev:before {
+  content: "\e800";
+}
+
+.icon-random:before {
+  content: "\e603";
+}
+
+.icon-down:before {
+  content: "\e7fa";
+}
+
+.icon-shanchu:before {
+  content: "\e64b;";
+}
+
+.icon-left:before {
+  content: "\e779";
+}
+
+.icon-top::before{
+	content: '\e625';
+}
+

@@ -1,0 +1,95 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 1104651 */
+  src: url('https://at.alicdn.com/t/font_1104651_ondhxbr4tfi.eot');
+  src: url('https://at.alicdn.com/t/font_1104651_ondhxbr4tfi.eot?#iefix') format('embedded-opentype'),
+  url('https://at.alicdn.com/t/font_1104651_ondhxbr4tfi.woff2') format('woff2'),
+  url('https://at.alicdn.com/t/font_1104651_ondhxbr4tfi.woff') format('woff'),
+  url('https://at.alicdn.com/t/font_1104651_ondhxbr4tfi.ttf') format('truetype'),
+  url('https://at.alicdn.com/t/font_1104651_ondhxbr4tfi.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-pause:before {
+  content: "\E6AD";
+}
+.icon-play:before {
+  content: "\E604";
+}
+.icon-loop:before {
+  content: "\E66C";
+}
+.icon-single:before {
+  content: "\E66D";
+}
+.icon-erji:before {
+  content: "\E654";
+}
+.icon-next:before {
+  content: "\E7FF";
+}
+.icon-prev:before {
+  content: "\E800";
+}
+.icon-random:before {
+  content: "\E603";
+}
+.icon-down:before {
+  content: "\E7FA";
+}
+.icon-shanchu:before {
+  content: "\E64B;";
+}
+.icon-left:before {
+  content: "\E779";
+}
+.icon-top::before{
+	content: '\E625';
+}
+.flex{
+	display:-webkit-box;
+	display:-webkit-flex;
+	display:-ms-flexbox;
+	display:flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+.flex-1{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
+}
+.flex-2{
+	-webkit-box-flex:2;
+	-webkit-flex:2;
+	    -ms-flex:2;
+	        flex:2;
+}
+.flex-3{
+	-webkit-box-flex:3;
+	-webkit-flex:3;
+	    -ms-flex:3;
+	        flex:3;
+}
+.auto-img{
+	width: 100%;
+	height:100%;
+}
+.ellipsis{
+	-o-text-overflow: ellipsis;
+	   text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+

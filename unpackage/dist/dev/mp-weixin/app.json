@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "Fly音乐",
+    "navigationBarBackgroundColor": "#f25a4a",
+    "backgroundColor": "#F8F8F8",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 80
+  },
+  "usingComponents": {}
+}
