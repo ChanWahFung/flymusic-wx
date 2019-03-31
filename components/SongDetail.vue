@@ -13,19 +13,22 @@
 		<view class="rotate-poster" :class="show?'show':''" :animation="spAnimationData">
 			<image @tap="tapPoster" class="auto-img" :src="currInfo.pic"></image>
 		</view>
-		<scroll-view @tap="tapLrc" class="lrc-box" :animation="lrcAnimationData" scroll-y="true">
-			<view v-if="lrcArr" class="lrc-complete">
-				<view class="lrc-part" :class="highLightFlag == index?'highLight':''" v-for="(item,index) in lrcArr" :key="index">
-					{{item.l}}
-				</view>
+		<scroll-view @tap="tapLrc" class="lrc-box" :scroll-into-view="'lrc'+highLightFlag" :animation="lrcAnimationData" scroll-y="true" scroll-with-animation="true">
+			<view class="lrc-part" :id="'lrc'+index" :class="highLightFlag == index?'highLight':''" v-for="(item,index) in lrcArr" :key="index">
+				{{item.l}}
 			</view>
 		</scroll-view>
+		<view class="progress flex">
+			<text class="start-time">{{currTimeStr}}</text>
+			<slider class="flex-1" @change="seekTime" :value="currTime" :max="currInfo.time" block-size="14" activeColor="#f25a4a"/>
+			<text class="finish-time">{{finishTimeStr}}</text>
+		</view>
 		<view class="control flex">
 			<text @tap="togglePlayType" class="iconfont flex-1" :class="playTypeIcon.icon"></text>
 			<text @tap="prevSong" class="prev iconfont icon-prev flex-1"></text>
 			<text @tap="play" class="iconfont flex-1" :class="paused?'icon-play':'icon-pause'"></text>
 			<text @tap="nextSong" class="next iconfont icon-next flex-1"></text>
-			<text class="iconfont icon-erji flex-1"></text>
+			<text @tap="showList" class="iconfont icon-liebiao flex-1"></text>
 		</view>
 	</view>
 </template>
@@ -50,7 +53,8 @@
 				lrcArr:null,//歌词数组
 				highLightFlag:-1,//歌词高亮 索引
 				spAnimationData:'',
-				lrcAnimationData:''
+				lrcAnimationData:'',
+				currTime:0,
 			};
 		},
 		computed:{
@@ -64,6 +68,12 @@
 					return {icon:'icon-single',desc:'单曲播放'}
 				}
 			},
+			currTimeStr(){
+				return this.formatProgressTime(this.currTime)
+			},
+			finishTimeStr(){
+				return this.formatProgressTime(Math.round(this.currInfo.time))
+			}
 		},
 		watch:{
 			currInfo(newVal){
@@ -90,6 +100,25 @@
 				this.show= true
 				this.hideLrcAnimate();
 				this.showSongPosterAnimate();
+			},
+			seekTime(event){
+				this.currTime = event.detail.value
+				this.app.audioContext.seek(this.currTime)
+				this.lrcArr.forEach((item,index,arr)=>{
+					if(index+1 >= arr.length-1){
+						return
+					}
+					if(item.t <= this.currTime && arr[index+1].t >= this.currTime){
+						this.highLightFlag = index
+						return
+					}
+				})
+			},
+			formatProgressTime(time){
+				let min = Math.floor(time / 60)
+				let sec = time % 60
+				if(sec < 10)sec = '0' + sec
+				return min + ':' + sec
 			},
 			formatTime(t){
 				let arr = t.match(/\d+/g)
@@ -134,12 +163,15 @@
 					icon:'none',
 					duration: 1000
 				});
+			},
+			showList(){
+				
 			}
 		},
 		onLoad(){
 			var audioCtx =  this.app.audioContext
-			// #ifndef MP
 			audioCtx.onTimeUpdate(()=>{
+				this.currTime = Math.round(audioCtx.currentTime)
 				if((this.highLightFlag+1) >= this.lrcArr.length-1){
 					this.highLightFlag = this.lrcArr.length-1
 					return
@@ -150,12 +182,12 @@
 					return
 				}
 			})
-			// #endif
 			audioCtx.onEnded(()=>{
 				// this.app.paused = true
 				// var type = this.$refs.songDetail.playType
 				//判断播放模式  执行
 				this.highLightFlag = -1
+				this.currTime = 0
 				switch(this.playType){
 					case LOOP:
 						this.loopPlay();
@@ -257,54 +289,49 @@
 	}
 }
 .lrc-box{
-	position: absolute;
-	top: 15%;
-	left: 50%;
-	width: 85%;
-	height: 65%;
-	transform: translateX(-50%);
+// 	position: absolute;
+// 	top: 15%;
+// 	left: 50%;
+	width: 100%;
+	height: 66%;
+	padding: 0 15px;
+	margin-top:10px; 
+	// transform: translateX(-50%);
 	opacity: 0;
-	
-	&::-webkit-scrollbar {
-        display: none;
-    }
-	
-	.lrc-complete{
+		
+	.lrc-part{
+		// height: 40px;
 		color:#ccc;
 		font-size: 15px;
+		line-height: 40px;
+		text-align: center;
+		transition: all .1s;
 		
-		.lrc-part{
-			// height: 40px;
-			line-height: 40px;
-			text-align: center;
-			transition: all .1s;
-			
-			&.highLight{
-				font-size: 17px;
-				color:#fff;
-			}
+		&.highLight{
+			font-size: 16px;
+			color:#f25a4a;
 		}
+		
 	}
+}
+.progress{
+// 	position: absolute;
+// 	top: 80%;
+// 	left: 0;
+	margin-top: 20px;
+	padding: 0 10px;
+	font-size: 12px;
+	color:#fff;
+	opacity: .9;
 }
 .control{
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	padding: 20px 0;
+	padding: 15px 0;
 	opacity: .85;
-	
-	&::after{
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 1px;
-		background: radial-gradient(#ccc 10%,transparent);
-		transform: scaleY(0.7);
-	}
-	
+
 	>text{
 		text-align:center;
 		font-size: 26px;

@@ -64,6 +64,21 @@
 				}
 			})
 		},
+		mounted() {
+			uni.getStorage({
+				key: 'mvkey',
+				fail:function(){
+					uni.setStorageSync('mvkey', new Date().getTime());
+					uni.showModal({
+						title: '提示',
+						content: '目前视频点击播放后可能需要等待很长时间或者无法正常播放，该问题正在解决中',
+						showCancel: false,
+						confirmText: '关闭',
+						confirmColor: '#F25A4A',
+					});
+				}
+			});	
+		},
 		onPullDownRefresh(){
 			this.mvLen = 0
 			this.getMvDetail({offset:this.mvLen}).then(res=>{
@@ -103,6 +118,12 @@
 }
 .mv-list{
 	padding: 0 10px;
+}
+.tip{
+	padding: 5px 15px;
+	font-size: 13px;
+	background: #f1f1f1;
+	color: #666;
 }
 .mv-item{
 	padding: 15px 5px;

@@ -79,6 +79,7 @@
 				this.paused = !this.audioContext.paused
 			},
 		},
+		
 		onLoad(){
 			this.audioContext = uni.createInnerAudioContext();
 			
@@ -110,6 +111,12 @@
 		},
 		onUnload(){
 			this.audioContext.destroy()
+		},
+		onShareAppMessage(res) {
+			return {
+				title: '我在使用Fly音乐小程序，一起来快乐啊！',
+				path: '/pages/index/index'
+			}
 		},
 		components:{
 			'home-page':HomePage,

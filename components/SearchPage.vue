@@ -1,7 +1,8 @@
 <template>
 	<view class="search-page">
 		<view class="search">
-			<input class="search-input iconfont icon-search-1-copy" type="text" placeholder="搜索" placeholder-style="color:#999" v-model="searchVal" @input="searchFn"/>
+			<view class="icon iconfont icon-search-1-copy" @tap="showInputFn"></view>
+			<input :class="inputClass" class="search-input flex-1" type="text" placeholder="搜索" placeholder-style="color:#999" v-model="searchVal" @input="searchFn"/>
 		</view>
 		<song-list :songs="songs" :playListId="-1"></song-list>
 		<view v-if="!songs" class="tip">QAQ 空空如也</view>
@@ -16,8 +17,18 @@
 				timer:null,
 				dataLen:0,
 				searchVal:'',
+				showInput:false,
 				songs:null
 			};
+		},
+		computed:{
+			inputClass(){
+				if(this.showInput){
+					return 'active'
+				}else{
+					return ''
+				}
+			}
 		},
 		methods:{
 			getSearchData({s,limit,offset}){
@@ -48,6 +59,7 @@
 				// #endif
 			},
 			searchFn(){
+				if(this.searchVal.trim() == '')return
 				clearTimeout(this.timer)
 				this.timer = setTimeout(()=>{
 					this.dataLen = 0
@@ -60,10 +72,19 @@
 							uni.hideLoading ()
 						}else{
 							this.songs = null
+							uni.hideLoading ()
+							uni.showToast({
+								title: '搜索不到相关歌曲',
+								icon:'none',
+								duration: 2000
+							});
 							throw  new URIError('请求error,搜索不到内容');
 						}
 					})
 				},1000)
+			},
+			showInputFn(){
+				this.showInput = this.showInput ? false : true
 			}
 		},
 		onPullDownRefresh(){
@@ -115,29 +136,45 @@
 	z-index: 5;
 	position: sticky;
 	top: 46px;
-	background: #fff;
-	padding: 20px 12px;
+	padding: 20px 12px 20px 29px;
 	box-sizing: border-box;
-	border-bottom: 1px solid #f5f5f5;
+	
+	.icon{
+		position: absolute;
+		top: 20px;
+		left: 12px;
+		z-index: 10;
+		width: 35px;
+		height: 35px;
+		line-height: 35px;
+		text-align: center;
+		font-size: 18px;
+		color: #fff;
+		background: #f25a4a;
+		border: 1px solid #f5f5f5;
+		border-radius: 50px;
+		box-sizing: border-box;
+	}
 			
-		.search-input{
-			position: relative;
-			padding: 3px 30px;
-			border-radius: 20px;
-			border:1px solid #ccc;
+	.search-input{
+		width: 0;
+		height: 35px;
+		padding: 0;
+		border-top-right-radius: 20px;
+		border-bottom-right-radius: 20px;
+		border:1px solid #f25a4a;
+		box-sizing: border-box;
+		font-size: 0px;
+		color:#424242;
+		background: #fff;
+		transition: all .5s;
+		
+		&.active{
+			width: 100%;
+			padding: 2px 10px 2px 25px;
 			font-size: 15px;
-			color:#424242;
-			background: #f9f9f9;
-			
-			&::before{
-				position: absolute;
-				top: 25%;
-				left: 8px;
-				content: "\e609";
-				font-size: 16px;
-				color:#999;
-			}
 		}
+	}
 }
 .tip{
 	padding-top: 150px;

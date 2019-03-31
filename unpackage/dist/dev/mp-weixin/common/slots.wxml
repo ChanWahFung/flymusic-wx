@@ -1,15 +1,14 @@
 <import src="/components/SectionTitle.vue.wxml" />
-<import src="/node-modules/@dcloudio/uni-ui/lib/uni-icon/uni-icon.vue.wxml" />
 <import src="/components/PlayLists.vue.wxml" />
 <import src="/components/SongList.vue.wxml" />
 
-<template name="data-v-66581b86-default-1fe9a435-0">MV排行榜</template>
-
 <template name="data-v-2b95de7c-default-bb4f558c-1">热门歌单</template>
 
-<template name="data-v-2b95de7c-default-bb4f558c-4">最新歌单</template>
+<template name="data-v-2b95de7c-default-bb4f558c-3">最新歌单</template>
 
-<template name="data-v-2b95de7c-default-bb4f558c-7">精品歌单</template>
+<template name="data-v-2b95de7c-default-bb4f558c-5">精品歌单</template>
 
-<template name="data-v-2b95de7c-default-bb4f558c-10">热歌榜</template>
+<template name="data-v-2b95de7c-default-bb4f558c-7">热歌榜</template>
+
+<template name="data-v-66581b86-default-1fe9a435-0">MV排行榜</template>
 

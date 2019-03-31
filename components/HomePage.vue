@@ -8,21 +8,21 @@
 		<view v-if="hotLists" class="hot-song-section">
 			<view class="flex section">
 				<section-title>热门歌单</section-title>
-				<uni-icon type="arrowright" size="20"></uni-icon>
+				<!-- <uni-icon type="arrowright" size="20"></uni-icon> -->
 			</view>
 			<play-lists :songlist="hotLists" />
 		</view>
 		<view v-if="newLists" class="new-song-section">
 			<view class="flex section">
 				<section-title>最新歌单</section-title>
-				<uni-icon type="arrowright" size="20"></uni-icon>
+				<!-- <uni-icon type="arrowright" size="20"></uni-icon> -->
 			</view>
 			<play-lists :songlist="newLists" />
 		</view>
 		<view v-if="goodLists" class="good-song-section">
 			<view class="flex section">
 				<section-title>精品歌单</section-title>
-				<uni-icon type="arrowright" size="20"></uni-icon>
+				<!-- <uni-icon type="arrowright" size="20"></uni-icon> -->
 			</view>
 			<play-lists :songlist="goodLists" />
 		</view>
